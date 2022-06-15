@@ -96,6 +96,26 @@ class Box(models.Model):
         return f'Бокс №{self.id}'
 
 
+class Client(models.Model):
+    """Зарегистрированный клиент сервиса арендовавший бокс."""
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+    phone = PhoneNumberField(
+        "телефон",
+        db_index=True
+    )
+
+    class Meta:
+        verbose_name = 'клиент'
+        verbose_name_plural = 'клиенты'
+
+    def __str__(self):
+        return str(self.phone)
+
+
 class BoxOrder(models.Model):
     box = models.ForeignKey(
         Box,
@@ -109,11 +129,11 @@ class BoxOrder(models.Model):
     )
     rent_start = models.DateField('начало срока аренды бокса', auto_now_add=True)
     rent_end = models.DateField('конец срока аренды бокса', null=True)
-    tenant = models.ForeignKey(
-        User,
-        on_delete=models.PROTECT,
-        verbose_name='арендатор',
-        related_name='box_orders'
+    client = models.ForeignKey(
+        Client,
+        verbose_name='клиент',
+        related_name='orders',
+        on_delete=models.PROTECT
     )
 
     objects = BoxOrderQuerySet.as_manager()

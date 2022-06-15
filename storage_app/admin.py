@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from storage_app.models import Storage, Box, BoxOrder
+from storage_app.models import Storage, Box, Client, BoxOrder
 
 
 class MyBoxOrderAdminForm(forms.ModelForm):
@@ -22,6 +22,11 @@ class StorageAdmin(admin.ModelAdmin):
 @admin.register(Box)
 class BoxAdmin(admin.ModelAdmin):
     readonly_fields = ['month_rent_price', 'is_rented']
+
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(BoxOrder)
