@@ -55,7 +55,10 @@ ROOT_URLCONF = 'self_storage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR/'templates',
+            BASE_DIR/'self_storage/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,7 +117,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = env.str('STATIC_URL', '/static/')
+
 STATIC_ROOT = env.str('STATIC_ROOT', str(BASE_DIR/'static'))
+
+STATICFILES_DIRS = env.list (
+    'STATICFILES_DIRS',
+    default=[
+        str(BASE_DIR/'self_storage/static'),
+    ]
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
