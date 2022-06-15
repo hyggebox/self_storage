@@ -1,8 +1,20 @@
+import random
+
 from django.shortcuts import render
 
+from .models import Storage
 
 def index(request):
-    return render(request, 'index.html')
+    random_storage = random.choice(Storage.objects.all())
+    storage_box_count = random_storage.boxes.count()
+    free_box_count = storage_box_count - random_storage.boxes.filter(is_rented=True).count()
+    context = {
+        'storage': random_storage,
+        'box_count': storage_box_count,
+        'free_box': free_box_count,
+    }
+
+    return render(request, 'index.html', context)
 
 
 def boxes(request):
