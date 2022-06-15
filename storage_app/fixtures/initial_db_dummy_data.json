@@ -1,0 +1,220 @@
+[
+  {
+    "model": "storage_app.storage",
+    "pk": 1,
+    "fields": {
+      "address": "ул. Манчестерская, д. 7, кв. 1",
+      "phone": "+79005556985",
+      "latitude": 51.682,
+      "longitude": 39.1353,
+      "alias": "Склад №1",
+      "first_square_meter_price": 599,
+      "rest_square_meters_price": 150
+    }
+  },
+  {
+    "model": "storage_app.storage",
+    "pk": 2,
+    "fields": {
+      "address": "ул. Курсанта, д.8, кв. 2",
+      "phone": "+79853542363",
+      "latitude": 51.692,
+      "longitude": 39.1873,
+      "alias": "Склад №2",
+      "first_square_meter_price": 300,
+      "rest_square_meters_price": 150
+    }
+  },
+  {
+    "model": "storage_app.storage",
+    "pk": 3,
+    "fields": {
+      "address": "ул. Ленина, д.10, кв. 22",
+      "phone": "+79366548795",
+      "latitude": 51.642,
+      "longitude": 39.1813,
+      "alias": "Склад №3",
+      "first_square_meter_price": 800,
+      "rest_square_meters_price": 200
+    }
+  },
+  {
+    "model": "storage_app.storage",
+    "pk": 4,
+    "fields": {
+      "address": "ул. Особая, д.5, кв. 7",
+      "phone": "+79996532154",
+      "latitude": 51.622,
+      "longitude": 39.2353,
+      "alias": "Склад №4",
+      "first_square_meter_price": 400,
+      "rest_square_meters_price": 180
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 1,
+    "fields": {
+      "storage": 1,
+      "size": 3,
+      "month_rent_price": 1500,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 2,
+    "fields": {
+      "storage": 2,
+      "size": 15,
+      "month_rent_price": 2500,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 3,
+    "fields": {
+      "storage": 3,
+      "size": 10,
+      "month_rent_price": 3100,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 4,
+    "fields": {
+      "storage": 4,
+      "size": 19,
+      "month_rent_price": 10000,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 5,
+    "fields": {
+      "storage": 1,
+      "size": 20,
+      "month_rent_price": 15000,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 6,
+    "fields": {
+      "storage": 2,
+      "size": 4,
+      "month_rent_price": 300,
+      "is_rented": "True"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 7,
+    "fields": {
+      "storage": 3,
+      "size": 5,
+      "month_rent_price": 1950,
+      "is_rented": "False"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 8,
+    "fields": {
+      "storage": 4,
+      "size": 13,
+      "month_rent_price": 5000,
+      "is_rented": "False"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 9,
+    "fields": {
+      "storage": 1,
+      "size": 1,
+      "month_rent_price": 200,
+      "is_rented": "False"
+    }
+  },
+  {
+    "model": "storage_app.box",
+    "pk": 10,
+    "fields": {
+      "storage": 2,
+      "size": 1,
+      "month_rent_price": 3600,
+      "is_rented": "False"
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 1,
+    "fields": {
+      "box": 1,
+      "rent_term": 1,
+      "rent_start": "2021-11-02",
+      "rent_end": "2021-12-02",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 2,
+    "fields": {
+      "box": 2,
+      "rent_term": 1,
+      "rent_start": "2021-11-02",
+      "rent_end": "2021-12-02",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 3,
+    "fields": {
+      "box": 3,
+      "rent_term": 2,
+      "rent_start": "2021-11-02",
+      "rent_end": "2022-01-02",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 4,
+    "fields": {
+      "box": 4,
+      "rent_term": 3,
+      "rent_start": "2021-11-02",
+      "rent_end": "2022-02-02",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 5,
+    "fields": {
+      "box": 5,
+      "rent_term": 4,
+      "rent_start": "2021-11-02",
+      "rent_end": "2022-03-02",
+      "tenant": 1
+    }
+  },
+  {
+    "model": "storage_app.boxorder",
+    "pk": 6,
+    "fields": {
+      "box": 6,
+      "rent_term": 5,
+      "rent_start": "2021-11-02",
+      "rent_end": "2022-04-02",
+      "tenant": 1
+    }
+  }
+]
