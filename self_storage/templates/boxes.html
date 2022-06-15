@@ -1,49 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" href="Style.css">
-	<title>Boxes</title>
-</head>
-<body>
-<header class="navbar navbar-expand-xl navbar-light fixed-top bg-white py-5">
-	<nav class="container">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="#">
-			<img src="img/Vector.svg" alt="[]">
-			<img src="img/SelfStorage.svg" alt="SelfStorage">
-		</a>
-		<div class="collapse navbar-collapse justify-content-end" id="navbar">
-			<ul class="navbar-nav">
-				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="#">Рассчитать стоимость</a>
-				</li>
-				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="#">Правила хранения</a>
-				</li>
-				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_black" href="#">Арендовать бокс</a>
-				</li>
-				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_green" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Войти</a>
-				</li>
-				<li class="nav-item d-flex align-items-center">
-					<div class="d-flex justify-content-center align-items-center rounded-pill SelfStorage__bg_green me-2" style="height: 36px; width: 36px;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="white" class="bi bi-telephone-fill" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
-						</svg>
-					</div>
-					<b>8 (800) 000-00-00</b>
-				</li>
-			</ul>
-		</div>
-	</nav>
-</header>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Boxes{%endblock%}
+
+{% block content %}
+
 <aside class="modal fade" id="RegModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
 		<div class="modal-content">
@@ -121,7 +83,7 @@
 			<li class="nav-item flex-grow-1 mx-2" role="presentation">
 				<a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Moscow-tab" data-bs-toggle="pill" data-bs-target="#pills-Moscow" role="tab" aria-controls="pills-Moscow" aria-selected="true">
 					<div class="col-12 col-lg-3 d-flex justify-content-center">
-						<img src="img/image11.png" alt="" class="mb-3 mb-lg-0">
+						<img src="{% static 'img/image11.png' %}" alt="" class="mb-3 mb-lg-0">
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
 						<h4 class="text-center">Москва</h4>
@@ -140,7 +102,7 @@
 			<li class="nav-item flex-grow-1 mx-2" role="presentation">
 				<a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Odintsovo-tab" data-bs-toggle="pill" data-bs-target="#pills-Odintsovo" role="tab" aria-controls="pills-Odintsovo" aria-selected="true">
 					<div class="col-12 col-lg-3 d-flex justify-content-center">
-						<img src="img/image9.png" alt="" class="mb-3 mb-lg-0">
+						<img src="{% static 'img/image9.png' %}" alt="" class="mb-3 mb-lg-0">
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
 						<h4 class="text-center">Одинцово</h4>
@@ -159,7 +121,7 @@
 			<li class="nav-item flex-grow-1 mx-2" role="presentation">
 				<a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Pushkino-tab" data-bs-toggle="pill" data-bs-target="#pills-Pushkino" role="tab" aria-controls="pills-Pushkino" aria-selected="true">
 					<div class="col-12 col-lg-3 d-flex justify-content-center">
-						<img src="img/image15.png" alt="" class="mb-3 mb-lg-0">
+						<img src="{% static 'img/image15.png' %}" alt="" class="mb-3 mb-lg-0">
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
 						<h4 class="text-center">Пушкино</h4>
@@ -178,7 +140,7 @@
 			<li class="nav-item flex-grow-1 mx-2" role="presentation">
 				<a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Lubertsi-tab" data-bs-toggle="pill" data-bs-target="#pills-Lubertsi" role="tab" aria-controls="pills-Lubertsi" aria-selected="true">
 					<div class="col-12 col-lg-3 d-flex justify-content-center">
-						<img src="img/image151.png" alt="" class="mb-3 mb-lg-0">
+						<img src="{% static 'img/image151.png' %}" alt="" class="mb-3 mb-lg-0">
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
 						<h4 class="text-center">Люберцы</h4>
@@ -197,7 +159,7 @@
 			<li class="nav-item flex-grow-1 mx-2" role="presentation">
 				<a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Domodedovo-tab" data-bs-toggle="pill" data-bs-target="#pills-Domodedovo" role="tab" aria-controls="pills-Domodedovo" aria-selected="true">
 					<div class="col-12 col-lg-3 d-flex justify-content-center">
-						<img src="img/image16.png" alt="" class="mb-3 mb-lg-0">
+						<img src="{% static 'img/image16.png' %}" alt="" class="mb-3 mb-lg-0">
 					</div>
 					<div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
 						<h4 class="text-center">Домодедово</h4>
@@ -255,12 +217,12 @@
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 								<div class="carousel-item">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -324,12 +286,12 @@
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 								<div class="carousel-item">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{%  static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -393,12 +355,12 @@
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 								<div class="carousel-item">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -462,12 +424,12 @@
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 								<div class="carousel-item">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -531,12 +493,12 @@
 							<div class="carousel-inner">
 								<div class="carousel-item active">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 								<div class="carousel-item">
 									<div class="d-flex flex-column align-items-center">
-										<img src="img/image2.png" alt="">
+										<img src="{% static 'img/image2.png' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -935,57 +897,12 @@
 		</div>
 	</article>
 </main>
-<footer class="container py-5">
-	<div class="row mb-5">
-		<div class="col-6 col-md-4 d-flex flex-column mb-3">
-			<a href="#" class="navbar-brand">
-				<img src="img/Vector.svg" alt="[]">
-				<img src="img/SelfStorage.svg" alt="SelfStorage">
-			</a>
-			<span class="SelfStorage_green">Ежедневно: 9.00 - 21.00</span>
 
-		</div>
-		<div class="col-6 col-md-4 d-flex flex-column mb-3">
-			<span class="fs_24 fw-bold SelfStorage_green">8 (800) 000-00-00</span>
-			<span class="SelfStorage_green">info@selfstorage.ru</span>
-		</div>
-		<div class="col-6 col-md-4">
-			<div class="">
-				<a href="https://vk.com/devmanorg"><img src="img/VK_Compact_Logo%201.svg" alt=""></a>
-				<a href="#" class="text-decoration-none">
-					<svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
-					</svg>
-				</a>
-				<a href="#"><img src="img/whatsapp.svg" alt=""></a>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-6 col-md-4 d-flex flex-column">
-			<p><a href="#" class="link-dark text-decoration-none">Тарифы</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Рассчитать стоимость</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Арендовать бокс</a></p>
-		</div>
-		<div class="col-6 col-md-4 d-flex flex-column">
-			<p><a href="#" class="link-dark text-decoration-none">Правила хранения</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Адреса складов</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Отзывы</a></p>
-		</div>
-		<div class="col-6 col-md-4 d-flex flex-column">
-			<p><a href="#" class="link-dark text-decoration-none">Политика конфиденциальности</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Правовые документы</a></p>
-			<p><a href="#" class="link-dark text-decoration-none">Контакты</a></p>
-		</div>
-		<h6 class="SelfStorage_grey text-center mt-5">© 2022 SelfStorage. Использование материалов запрещено без письменного согласия</h6>
-	</div>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% endblock content %}
+
 <script>
 	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 	var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 		return new bootstrap.Popover(popoverTriggerEl)
 	})
 </script>
-</body>
-</html>
