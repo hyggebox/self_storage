@@ -1,8 +1,20 @@
 import random
 
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
+from .forms import RegistrationForm
 from .models import Storage
+
+
+
+class SignUp(CreateView):
+    form_class = RegistrationForm
+    success_url = reverse_lazy('my_rent')
+    template_name = 'registration/signup.html'
+
 
 def index(request):
     random_storage = random.choice(Storage.objects.all())
@@ -28,7 +40,6 @@ def faq(request):
     return render(request, 'faq.html')
 
 
+@login_required(login_url='/users/login/')
 def my_rent(request):
-    if True:
-        return render(request, 'my-rent.html')
-    return render(request, 'my-rent-empty.html')
+    return render(request, 'my-rent.html')
