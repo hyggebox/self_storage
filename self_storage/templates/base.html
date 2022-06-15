@@ -31,9 +31,15 @@
 				<li class="nav-item me-5">
 					<a class="nav-link SelfStorage_black" href="{% url 'boxes' %}">Арендовать бокс</a>
 				</li>
-				<li class="nav-item me-5">
-					<a class="nav-link SelfStorage_green" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Войти</a>
-				</li>
+        {% if user.is_authenticated %}
+          <li class="nav-item me-5">
+            <a class="nav-link SelfStorage_green" href="{% url 'logout' %}">Выйти</a>
+          </li>
+        {% else %}
+          <li class="nav-item me-5">
+            <a class="nav-link SelfStorage_green" href="#" data-bs-toggle="modal" data-bs-target="#SignModal">Войти</a>
+          </li>
+        {% endif %}
 				<li class="nav-item d-flex align-items-center">
 					<div class="d-flex justify-content-center align-items-center rounded-pill SelfStorage__bg_green me-2" style="height: 36px; width: 36px;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="white" class="bi bi-telephone-fill" viewBox="0 0 16 16">
