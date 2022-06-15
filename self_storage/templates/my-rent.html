@@ -12,7 +12,7 @@
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_orange SelfStorage_tab active" id="LK-tab" data-bs-toggle="pill" data-bs-target="#LK" type="button" role="tab" aria-controls="LK" aria-selected="true">Личный кабинет</button>
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_grey SelfStorage_tab" id="Rent-tab" data-bs-toggle="pill" data-bs-target="#Rent" type="button" role="tab" aria-controls="Rent" aria-selected="false">Моя аренда</button>
 			<a href="./faq" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">FAQ</a>
-			<a href="#" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">Выйти</a>
+			<a href="{% url 'logout' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">Выйти</a>
 		</div>
 		<div class="col-lg-9">
 			<div class="card tab-content p-5">
@@ -21,7 +21,7 @@
 						<div class="col-12 col-sm-5 d-flex flex-column align-items-center">
 							<img src="{% static 'img/image10.png' %}" class="rounded-pill mb-3" alt="">
               {% if user.first_name %}
-							<h4>{{ user.first_name }} {{ user.last_name }} err</h4>
+							<h4>{{ user.first_name }} {{ user.last_name }}</h4>
               {% else %}
               <h4>{{ user.username }}</h4>
               {% endif %}
@@ -70,29 +70,20 @@
 
 					<a href="#" class="SelfStorage_orange">История аренды</a>
 					<h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу:(<br>Вы можете продлить аренду или забрать вещи до 28 июня 2022 года включительно.</h4>
-					<div class="mb-5">
-						<h4 class="SelfStorage_green">Мой склад №1</h4>
-						<h4>Одинцово, ул. Северная, д. 36</h4>
-						<h4 class="SelfStorage_green">Мой бокс</h4>
-						<h4>№2389-12</h4>
-						<h4 class="SelfStorage_green">Срок аренды</h4>
-						<h4>15.03.2022 - 28.06.2022</h4>
-						<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
-						<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button></div>
-						<a href="#" class="SelfStorage_orange">Нужна помощь?</a>
-					</div>
 
-					<div class="mb-5">
-						<h4 class="SelfStorage_green">Мой склад №2</h4>
-						<h4>Люберцы, ул. Советская, д. 88</h4>
-						<h4 class="SelfStorage_green">Мой бокс</h4>
-						<h4>№2335-10</h4>
-						<h4 class="SelfStorage_green">Срок аренды</h4>
-						<h4>18.03.2022 - 21.09.2022</h4>
-						<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
-						<div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button></div>
-						<a href="#" class="SelfStorage_orange">Нужна помощь?</a>
-					</div>
+          {% for order in user.client.orders.all %}
+            <div class="mb-5">
+              <h4 class="SelfStorage_green">Мой {{ order.box.storage }}</h4>
+              <h4>{{ order.box.storage.address }}</h4>
+              <h4 class="SelfStorage_green">Мой бокс</h4>
+              <h4>№{{ order.box.id }}</h4>
+              <h4 class="SelfStorage_green">Срок аренды</h4>
+              <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
+              <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
+              <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button></div>
+              <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
+					  </div>
+          {% endfor %}
 				</div>
 			</div>
 		</div>
