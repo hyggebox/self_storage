@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -5,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
+from .models import Storage
 from django.contrib.auth.forms import UserCreationForm
 
 from django.views.generic import CreateView
@@ -34,7 +37,16 @@ class SignUp(CreateView):
 
 
 def index(request):
-    return render(request, 'index.html')
+    random_storage = random.choice(Storage.objects.all())
+    storage_box_count = random_storage.boxes.count()
+    free_box_count = storage_box_count - random_storage.boxes.filter(is_rented=True).count()
+    context = {
+        'storage': random_storage,
+        'box_count': storage_box_count,
+        'free_box': free_box_count,
+    }
+
+    return render(request, 'index.html', context)
 
 
 def boxes(request):

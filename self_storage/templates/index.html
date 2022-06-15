@@ -180,18 +180,18 @@
 		<div class="col-12 col-lg-6 mb-3 mb-lg-0 SelfStorage__img2"></div>
 		<div class="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
 			<h1 class="text-start fw-bold SelfStorage_green mb-4">Всегда рядом</h1>
-			<h4 class="SelfStorage_grey">Одинцово,  ул. Северная, д. 36</h4>
+			<h4 class="SelfStorage_grey">{{ storage.address }}</h4>
 			<div class="row">
 				<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
 					<span class="fs_30 fw-bold SelfStorage_orange">18 °С</span>
 					<span class="SelfStorage_grey mb-3">Температура на складе</span>
-					<span class="fs_30 fw-bold SelfStorage_orange">24 из 258</span>
+					<span class="fs_30 fw-bold SelfStorage_orange">{{ free_box }} из {{ box_count }}</span>
 					<span class="SelfStorage_grey mb-3">Боксов свободно</span>
 				</div>
 				<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
 					<span class="fs_30 fw-bold SelfStorage_orange">до 3.5 м</span>
 					<span class="SelfStorage_grey mb-3">Высота потолка</span>
-					<span class="fs_30 fw-bold SelfStorage_orange">2264 ₽</span>
+					<span class="fs_30 fw-bold SelfStorage_orange">от {{ storage.rest_square_meters_price }} ₽</span>
 					<span class="SelfStorage_grey mb-3">Оплата за месяц</span>
 				</div>
 				<a href="{% url 'boxes' %}" class="text-center text-lg-start mt-4 mb-5 SelfStorage_green">Подробнее о складе</a>
