@@ -18,7 +18,10 @@ def index(request):
 
 
 def boxes(request):
-    return render(request, 'boxes.html')
+    context = {
+        'storages': Storage.objects.all(),
+    }
+    return render(request, 'boxes.html', context)
 
 
 def faq(request):
