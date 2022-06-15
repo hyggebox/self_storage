@@ -37,12 +37,13 @@ def index(request):
             return redirect(index)
 
         elif 'EMAIL_CREATE' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
-
             new_user = User.objects.filter(username=request.POST['EMAIL_CREATE']).first()
             if not new_user:
+                user_name = request.POST['NAME'] or ''
                 User.objects.create_user(
                     username=request.POST['EMAIL_CREATE'],
-                    password=request.POST['PASSWORD_CREATE']
+                    password=request.POST['PASSWORD_CREATE'],
+                    first_name=user_name
                 )
 
         else:
