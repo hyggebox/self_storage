@@ -1,5 +1,107 @@
 [
   {
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "username": "user1",
+    "password": "password",
+    "email": "user1@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "user2",
+      "password": "password",
+      "email": "user2@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "username": "user3",
+      "password": "password",
+      "email": "user3@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "username": "user4",
+      "password": "password",
+      "email": "user4@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "username": "user5",
+      "password": "password",
+      "email": "user5@mail.com"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "username": "user6",
+      "password": "password",
+      "email": "user6@mail.com"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "phone": "+79005556677"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "phone": "+79005557722"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 3,
+    "fields": {
+      "user": 4,
+      "phone": "+79005558833"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 4,
+    "fields": {
+      "user": 5,
+      "phone": "+79005559944"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 5,
+    "fields": {
+      "user": 6,
+      "phone": "+79005550055"
+    }
+  },
+  {
+    "model": "storage_app.client",
+    "pk": 6,
+    "fields": {
+      "user": 7,
+      "phone": "+79005551166"
+    }
+  },
+  {
     "model": "storage_app.storage",
     "pk": 1,
     "fields": {
@@ -159,7 +261,7 @@
       "rent_term": 1,
       "rent_start": "2021-11-02",
       "rent_end": "2021-12-02",
-      "tenant": 1
+      "client": 2
     }
   },
   {
@@ -170,7 +272,7 @@
       "rent_term": 1,
       "rent_start": "2021-11-02",
       "rent_end": "2021-12-02",
-      "tenant": 1
+      "client": 2
     }
   },
   {
@@ -181,7 +283,7 @@
       "rent_term": 2,
       "rent_start": "2021-11-02",
       "rent_end": "2022-01-02",
-      "tenant": 1
+      "client": 3
     }
   },
   {
@@ -192,7 +294,7 @@
       "rent_term": 3,
       "rent_start": "2021-11-02",
       "rent_end": "2022-02-02",
-      "tenant": 1
+      "client": 4
     }
   },
   {
@@ -203,7 +305,7 @@
       "rent_term": 4,
       "rent_start": "2021-11-02",
       "rent_end": "2022-03-02",
-      "tenant": 1
+      "client": 2
     }
   },
   {
@@ -214,7 +316,7 @@
       "rent_term": 5,
       "rent_start": "2021-11-02",
       "rent_end": "2022-04-02",
-      "tenant": 1
+      "client": 3
     }
   }
 ]
