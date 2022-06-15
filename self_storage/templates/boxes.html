@@ -84,18 +84,19 @@
                 <li class="nav-item flex-grow-1 mx-2" role="presentation">
                     <a href="#BOX" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink" id="pills-Moscow-tab" data-bs-toggle="pill" data-bs-target="#pills-Moscow" role="tab" aria-controls="pills-Moscow" aria-selected="true">
                         <div class="col-12 col-lg-3 d-flex justify-content-center">
-                            <img src="{% static 'img/image11.png' %}" alt="" class="mb-3 mb-lg-0">
+                            <!-- <img src="{% static 'img/image11.png' %}" alt="" class="mb-3 mb-lg-0"> -->
+														<img src="{{ MEDIA_URL }}{{ storage.image }}" alt="" class="mb-3 mb-lg-0">
                         </div>
                         <div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
-                            <h4 class="text-center">Москва</h4>
+                            <h4 class="text-center">{{ storage.alias }}</h4>
                             <h6 class="text-center">{{ storage.address }}</h6>
                         </div>
                         <div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
-                            <h4 class="text-center">{{ storage.free_boxes_count }}  из {{ storage.boxes.count }}</h4>
+                            <h4 class="text-center">{{ storage.count_free_boxes }}  из {{ storage.boxes.count }}</h4>
                             <h6 class="text-center">Боксов свободно</h6>
                         </div>
                         <div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center">
-                            <h4 class="text-center SelfStorage_green">от {{ storage.rest_square_meters_price }}</h4>
+                            <h4 class="text-center SelfStorage_green">от {{ storage.count_min_box_price }}</h4>
                             <h6 class="text-center">Рядом с метро</h6>
                         </div>
                     </a>
