@@ -38,6 +38,11 @@ class Storage(models.Model):
         blank=True,
         default=150
     )
+    image = models.ImageField(
+        'изображение',
+        blank=True,
+        null=True
+    )
 
     objects = StorageQuerySet.as_manager()
 
