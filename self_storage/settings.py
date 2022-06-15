@@ -120,7 +120,7 @@ STATIC_URL = env.str('STATIC_URL', '/static/')
 
 STATIC_ROOT = env.str('STATIC_ROOT', str(BASE_DIR/'static'))
 
-STATICFILES_DIRS = env.list (
+STATICFILES_DIRS = env.list(
     'STATICFILES_DIRS',
     default=[
         str(BASE_DIR/'self_storage/static'),
