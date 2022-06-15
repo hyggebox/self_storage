@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storage_app'
+    'storage_app',
+    'anymail'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,10 @@ MEDIA_ROOT = BASE_DIR/'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/my-rent'
 LOGOUT_REDIRECT_URL = '/'
+
+ANYMAIL = {
+    'MAILGUN_API_KEY': env.str('MAILGUN_API_KEY'),
+    'MAILGUN_SENDER_DOMAIN': env.str('MAILGUN_SENDER_DOMAIN'),
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+DEFAULT_FROM_EMAIL = 'safestorage@domain.com'

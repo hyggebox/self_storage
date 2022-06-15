@@ -158,6 +158,11 @@ class BoxOrder(models.Model):
         related_name='orders',
         on_delete=models.PROTECT
     )
+    access_qr = models.ImageField(
+        'QR-код для открытия',
+        blank=True,
+        null=True
+    )
 
     objects = BoxOrderQuerySet.as_manager()
 
