@@ -1,5 +1,6 @@
 import random
 
+from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -8,7 +9,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
-from .models import Storage
+from .models import Storage, Client
 
 
 
@@ -20,7 +21,7 @@ class SignUp(CreateView):
 
 def index(request):
     if request.method == 'POST':
-        if 'EMAIL' in request.POST:
+        if 'login_button' in request.POST:
             user = authenticate(username=request.POST['EMAIL'],
                                 password=request.POST['PASSWORD'])
             if user is not None:
@@ -36,21 +37,29 @@ def index(request):
                 ...
             return redirect(index)
 
-        elif 'EMAIL_CREATE' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
+        elif 'signup_button' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
             new_user = User.objects.filter(username=request.POST['EMAIL_CREATE']).first()
             if not new_user:
-                user_name = request.POST['NAME'] or ''
-                User.objects.create_user(
-                    username=request.POST['EMAIL_CREATE'],
-                    password=request.POST['PASSWORD_CREATE'],
-                    first_name=user_name
-                )
+                with transaction.atomic():
+                    created_user = User.objects.create_user(
+                        username=request.POST['EMAIL_CREATE'],
+                        password=request.POST['PASSWORD_CREATE'],
+                        first_name=request.POST['NAME']
+                    )
+                    Client.objects.create(
+                        user=created_user,
+                        phone=request.POST['PHONE'],
+                    )
+                    login(request, created_user)
+                    return redirect(my_rent)
+            return redirect('/?login=1')
 
-        else:
+        elif 'reset_button' in request.POST:
             user = User.objects.filter(username=request.POST['EMAIL_FORGET']).first()
             if user:
                 # TODO - Восстановление пароля
                 print(f'>>>>> отправить новый пароль на {user.username}')
+        return redirect('/?login=1')
 
     random_storage = random.choice(Storage.objects.all())
     storage_box_count = random_storage.boxes.count()
@@ -58,7 +67,7 @@ def index(request):
     context = {
         'storage': random_storage,
         'box_count': storage_box_count,
-        'free_box': free_box_count,
+        'free_box': free_box_count
     }
 
     return render(request, 'index.html', context)
