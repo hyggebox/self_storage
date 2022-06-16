@@ -68,6 +68,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
+            'libraries': {
+                'template_extras': 'storage_app.template_extras',
+
+            }
         },
     },
 ]
@@ -143,5 +147,5 @@ EMAIL_HOST = env.str('EMAIL_HOST')
 EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env.str('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
+EMAIL_PORT = env.int('EMAIL_PORT', 25)
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)

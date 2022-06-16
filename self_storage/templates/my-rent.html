@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load template_extras %}
 
 {% block title %}My rent{%endblock%}
 
@@ -11,8 +11,9 @@
 		<div class="col-lg-3 d-flex flex-column nav nav-pills">
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_orange SelfStorage_tab active" id="LK-tab" data-bs-toggle="pill" data-bs-target="#LK" type="button" role="tab" aria-controls="LK" aria-selected="true">Личный кабинет</button>
 			<button class="ps-0 btn bg-white fs_24 shadow-none SelfStorage_grey SelfStorage_tab" id="Rent-tab" data-bs-toggle="pill" data-bs-target="#Rent" type="button" role="tab" aria-controls="Rent" aria-selected="false">Моя аренда</button>
-			<a href="./faq" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">FAQ</a>
+			<a href="{% url 'faq' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_grey SelfStorage_tab">FAQ</a>
 			<a href="{% url 'logout' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_orange SelfStorage_tab">Выйти</a>
+      <a href="/boxes#rent-a-box" class="btn fs_24 my-4 px-3 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Арендовать бокс</a>
 		</div>
 		<div class="col-lg-9">
 			<div class="card tab-content p-5">
@@ -56,6 +57,13 @@
 											document.getElementById('save').style.display = 'none'
 										}, 0)
 									})
+
+									var myModal = document.getElementById('myModal')
+                  var myInput = document.getElementById('myInput')
+
+                  myModal.addEventListener('shown.bs.modal', function () {
+                    myInput.focus()
+                  })
 								</script>
 							</form>
 						</div>
@@ -68,22 +76,60 @@
             <h1 class="fw-bold SelfStorage_green mb-5">Добрый день, {{ user.username }}!</h1>
           {% endif %}
 
-					<a href="#" class="SelfStorage_orange">История аренды</a>
-					<h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу:(<br>Вы можете продлить аренду или забрать вещи до 28 июня 2022 года включительно.</h4>
+					<div class="mb-4"><a href="#show_rent_history" class="SelfStorage_orange">История аренды</a></div>
 
           {% for order in user.client.orders.all %}
-            <div class="mb-5">
-              <h4 class="SelfStorage_green">Мой {{ order.box.storage }}</h4>
-              <h4>{{ order.box.storage.address }}</h4>
-              <h4 class="SelfStorage_green">Мой бокс</h4>
-              <h4>№{{ order.box.id }}</h4>
-              <h4 class="SelfStorage_green">Срок аренды</h4>
-              <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
-              <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
-              <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Открыть бокс</button></div>
-              <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
-					  </div>
+            {% if order.rent_end|days_left >= 0 %}
+
+              {% if order.rent_end|days_left < 15 %}
+                <h4 class="SelfStorage_grey my-3">Срок Вашей аренды подходит к концу:(<br>Вы можете продлить аренду или забрать вещи до {{ order.rent_end }} включительно.</h4>
+              {% endif %}
+
+              <div class="mb-5">
+                <h4 class="SelfStorage_green">Мой {{ order.box.storage }}</h4>
+                <h4>{{ order.box.storage.address }}</h4>
+                <h4 class="SelfStorage_green">Мой бокс</h4>
+                <h4>№{{ order.box.storage.id }}-{{ order.box.id }}</h4>
+                <h4 class="SelfStorage_green">Срок аренды</h4>
+                <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
+                <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
+                <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" data-bs-toggle="modal" data-bs-target="#showCode{{ order.box.id }}">Открыть бокс</button></div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="showCode{{ order.box.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="m-4 text-center">
+                        <h4><span class="SelfStorage__grey">Код для открытия:</span> {{ order.access_code }}</h4>
+                        <div><img src="{% get_media_prefix %}{{ order.access_qr }}"></div>
+                        <div class="SelfStorage__grey">Код отправлен на Вашу почту</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
           {% endfor %}
+          <a href="#" class="SelfStorage_orange">Нужна помощь?</a>
+
+          <hr>
+
+          <a class="SelfStorage_orange" id="show_rent_history" data-bs-toggle="collapse" href="#rentHistory" role="button" aria-expanded="false" aria-controls="collapseExample">Посмотреть историю аренды</a>
+          <div class="collapse" id="rentHistory">
+            <div class="card card-body">
+              {% for order in user.client.orders.all %}
+                {% if order.rent_end|days_left < 0 %}
+                  <div class="mb-5">
+                    <h4 class="SelfStorage_grey">{{ order.box.storage }} ({{ order.box.storage.address }}) - бокс №{{ order.box.storage.id }}-{{ order.box.id }}</h4>
+                    <h4 class="SelfStorage_grey">{{ order.rent_start }} - {{ order.rent_end }}</h4>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+
+
+
 				</div>
 			</div>
 		</div>
