@@ -9,4 +9,4 @@ class RegistrationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'first_name')
