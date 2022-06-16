@@ -1,5 +1,7 @@
 import random
 
+import phonenumbers
+
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -34,18 +36,25 @@ def index(request):
         elif 'signup_button' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
             new_user = User.objects.filter(username=request.POST['EMAIL_CREATE']).first()
             if not new_user:
-                with transaction.atomic():
-                    created_user = User.objects.create_user(
-                        username=request.POST['EMAIL_CREATE'],
-                        password=request.POST['PASSWORD_CREATE'],
-                        first_name=request.POST['NAME']
+                parsed_phonenumber = phonenumbers.parse(request.POST['PHONE'], 'RU')
+                if phonenumbers.is_valid_number(parsed_phonenumber):
+                    formatted_phonenumber = phonenumbers.format_number(
+                        parsed_phonenumber,
+                        phonenumbers.PhoneNumberFormat.E164
                     )
-                    Client.objects.create(
-                        user=created_user,
-                        phone=request.POST['PHONE'],
-                    )
-                    login(request, created_user)
-                    return redirect(my_rent)
+                    print(formatted_phonenumber, 'is ok')
+                    with transaction.atomic():
+                        created_user = User.objects.create_user(
+                            username=request.POST['EMAIL_CREATE'],
+                            password=request.POST['PASSWORD_CREATE'],
+                            first_name=request.POST['NAME']
+                        )
+                        Client.objects.create(
+                            user=created_user,
+                            phone=formatted_phonenumber,
+                        )
+                        login(request, created_user)
+                        return redirect(my_rent)
             return redirect('/?login=1')
 
         elif 'reset_button' in request.POST:
@@ -80,4 +89,19 @@ def faq(request):
 
 @login_required(login_url='/?login=1')
 def my_rent(request):
+    if request.method == 'POST':
+        current_user = request.user
+        if request.POST['PASSWORD_EDIT'] != 'new password':
+            current_user.set_password(request.POST['PASSWORD_EDIT'])
+            current_user.save()
+        if current_user.client.phone != request.POST['PHONE_EDIT']:
+            parsed_phonenumber = phonenumbers.parse(request.POST['PHONE_EDIT'], 'RU')
+            if phonenumbers.is_valid_number(parsed_phonenumber):
+                formatted_phonenumber = phonenumbers.format_number(
+                    parsed_phonenumber,
+                    phonenumbers.PhoneNumberFormat.E164
+                )
+            current_user.client.phone = formatted_phonenumber
+            current_user.client.save()
+
     return render(request, 'my-rent.html')

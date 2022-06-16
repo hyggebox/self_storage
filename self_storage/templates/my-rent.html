@@ -15,6 +15,8 @@
 			<a href="{% url 'logout' %}" class="btn fs_24 shadow-none text-decoration-none SelfStorage_orange SelfStorage_tab">Выйти</a>
       <a href="/boxes#rent-a-box" class="btn fs_24 my-4 px-3 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3">Арендовать бокс</a>
 		</div>
+
+
 		<div class="col-lg-9">
 			<div class="card tab-content p-5">
 				<div class="tab-pane fade show active" id="LK" role="tabpanel" aria-labelledby="LK-tab">
@@ -22,25 +24,27 @@
 						<div class="col-12 col-sm-5 d-flex flex-column align-items-center">
 							<img src="{% static 'img/image10.png' %}" class="rounded-pill mb-3" alt="">
               {% if user.first_name %}
-							<h4>{{ user.first_name }}</h4>
+                <h4>{{ user.first_name }}</h4>
               {% else %}
               <h4>{{ user.username }}</h4>
               {% endif %}
 						</div>
 						<div class="col-12 col-sm-7 d-flex flex-column">
-							<form>
+							<form action="my-rent" method="post" id="form1">
+                {% csrf_token %}
 								<label class="fs_24 SelfStorage_green ms-2" for="EMAIL">E-mail</label>
 								<input type="email" name="EMAIL_EDIT" id="EMAIL" class="form-control fs_24 ps-2 SelfStorage__input" value="{{ user.username }}" disabled>
 								<label class="fs_24 SelfStorage_green ms-2" for="PHONE">Телефон</label>
 								<input type="tel" name="PHONE_EDIT" id="PHONE" class="form-control fs_24 ps-2 SelfStorage__input" value="{{ user.client.phone }}" disabled>
 								<label class="fs_24 SelfStorage_green ms-2" for="PASSWORD">Пароль</label>
+
 								<input type="password" name="PASSWORD_EDIT" id="PASSWORD" class="form-control fs_24 ps-2 SelfStorage__input" value="new password" disabled>
-								<button type="submit" class="btn SelfStorage_green ps-1" id="save" style="display: none">Сохранить</button>
+								<button type="submit" name="alter_personal_details" class="btn SelfStorage_green ps-1" id="save" style="display: none" onclick="submitForms">Сохранить</button>
 								<a class="btn SelfStorage_orange ps-1" id="edit">Редактировать</a>
 								<script>
 									document.getElementById('edit').addEventListener('click', e => {
 										e.preventDefault()
-										document.getElementById('EMAIL').disabled = false
+
 										document.getElementById('PHONE').disabled = false
 										document.getElementById('PASSWORD').disabled = false
 										document.getElementById('PASSWORD').type = 'text'
@@ -49,7 +53,6 @@
 									})
 									document.getElementById('save').addEventListener('click', () => {
 										setTimeout(() => {
-											document.getElementById('EMAIL').disabled = true
 											document.getElementById('PHONE').disabled = true
 											document.getElementById('PASSWORD').disabled = true
 											document.getElementById('PASSWORD').type = 'password'
@@ -65,10 +68,12 @@
                     myInput.focus()
                   })
 								</script>
-							</form>
+              </form>
 						</div>
 					</div>
 				</div>
+
+
 				<div class="tab-pane fade" id="Rent" role="tabpanel" aria-labelledby="Rent-tab">
           {% if user.first_name %}
             <h1 class="fw-bold SelfStorage_green mb-5">Добрый день, {{ user.first_name }}!</h1>
@@ -127,9 +132,6 @@
               {% endfor %}
             </div>
           </div>
-
-
-
 				</div>
 			</div>
 		</div>
