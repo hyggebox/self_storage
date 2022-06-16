@@ -1,4 +1,8 @@
+from random import randint
+
 from dateutil.relativedelta import relativedelta
+
+import qrcode
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -158,6 +162,11 @@ class BoxOrder(models.Model):
         related_name='orders',
         on_delete=models.PROTECT
     )
+    access_code = models.IntegerField(
+        'Код для открытия',
+        blank=True,
+        null=True
+    )
     access_qr = models.ImageField(
         'QR-код для открытия',
         blank=True,
@@ -173,6 +182,14 @@ class BoxOrder(models.Model):
         super().save(*args, **kwargs)
 
         self.rent_end = self.rent_start + relativedelta(months=self.rent_term)
+
+        super().save(*args, **kwargs)
+
+        access_code = randint(10000, 100000)
+        self.access_code = access_code
+        qr = qrcode.make(access_code)
+        qr.save(f'media/qr/{self.box}.png')
+        self.access_qr = f'qr/{self.box}.png'
 
         super().save(*args, **kwargs)
 
