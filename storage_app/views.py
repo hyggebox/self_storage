@@ -25,17 +25,11 @@ def index(request):
             user = authenticate(username=request.POST['EMAIL'],
                                 password=request.POST['PASSWORD'])
             if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect(my_rent)
-                else:
-                    # TODO - Return a 'disabled account' error message
-                    ...
-            else:
-                print('No user')
-                # TODO - Return an 'invalid login' error message.
-                ...
-            return redirect(index)
+                login(request, user)
+                return redirect(my_rent)
+
+            print('No user')
+            return redirect('/?login=1')
 
         elif 'signup_button' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
             new_user = User.objects.filter(username=request.POST['EMAIL_CREATE']).first()
