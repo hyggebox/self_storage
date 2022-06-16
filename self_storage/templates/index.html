@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 
 {% block title %}Self storage{%endblock%}
@@ -13,15 +14,31 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body d-flex justify-content-center align-items-center">
+
+<!--        <form class="d-flex flex-column align-items-center" action="/" method="post">-->
+<!--          {% csrf_token %}-->
+
+<!--          <h1 class="modal-title text-center fw-bold mb-3">Регистрация</h1>-->
+<!--          {% render_field signup_form.username placeholder="E-mail" class+="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" %}-->
+<!--          {% render_field signup_form.first_name placeholder="Имя" class+="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" %}-->
+<!--          {% render_field signup_form.password1 placeholder=signup_form.password1.label class+="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" %}-->
+<!--          {% render_field signup_form.password2 placeholder=signup_form.password2.label class+="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" %}-->
+
+<!--          <button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="signup_button">Зарегистрироваться</button>-->
+<!--					<span>Уже зарегистрированы? <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#SignModal" data-bs-dismiss="modal" aria-label="Close">Войти в личный кабинет</a></span>-->
+
+<!--        </form>-->
+
 				<form class="d-flex flex-column align-items-center" style="max-width: 420px" method="post">
           {% csrf_token %}
 					<h1 class="modal-title text-center fw-bold mb-3">Регистрация</h1>
-					<input type="email" required name="EMAIL_CREATE" class="form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="E-mail">
-          <input type="text" required name="NAME" class="form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Имя">
-					<input type="password" required name="PASSWORD_CREATE" class="form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Пароль">
-					<input type="password" required name="PASSWORD_CONFIRM" class="form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Подтверждение пароля">
+					<input type="email" required name="EMAIL_CREATE" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="E-mail">
+          <input type="tel" required name="PHONE" pattern="[0-9]{11}" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Номер телефона (11 цифр)">
+          <input type="text" required name="NAME" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Имя">
+					<input type="password" required name="PASSWORD_CREATE" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Пароль">
+					<input type="password" required name="PASSWORD_CONFIRM" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Подтверждение пароля">
 					<span class="fw-light SelfStorage_grey">Нажимая на кнопку, вы подтверждаете свое <a href="#" class="SelfStorage_grey">согласие на обработку персональных данных</a></span>
-					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange">Зарегистрироваться</button>
+					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="signup_button">Зарегистрироваться</button>
 					<span>Уже зарегистрированы? <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#SignModal" data-bs-dismiss="modal" aria-label="Close">Войти в личный кабинет</a></span>
 				</form>
 			</div>
@@ -41,7 +58,7 @@
 					<input type="email" required name="EMAIL" class="form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="E-mail">
 					<input type="password" required name="PASSWORD" class="form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Пароль">
 					<a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#ForgetModal" data-bs-dismiss="modal" aria-label="Close">Забыли пароль?</a>
-					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange">Войти</button>
+					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="login_button">Войти</button>
 					<span>Нет аккаунта?  <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#RegModal" data-bs-dismiss="modal" aria-label="Close">Зарегистрируйтесь на сайте</a></span>
 				</form>
 			</div>
@@ -59,7 +76,7 @@
           {% csrf_token %}
 					<h1 class="modal-title text-center fw-bold mb-3">Восстановление пароля</h1>
 					<input type="email" required name="EMAIL_FORGET" class="form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="E-mail">
-					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange">Восстановить</button>
+					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="reset_button">Восстановить</button>
 					<span>Вспомнили пароль?  <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#SignModal" data-bs-dismiss="modal" aria-label="Close">Отмена</a></span>
 				</form>
 			</div>
