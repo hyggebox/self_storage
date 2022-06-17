@@ -1,4 +1,5 @@
 from random import randint
+from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
 
@@ -163,7 +164,7 @@ class Box(models.Model):
         first_meter_price = self.storage.first_square_meter_price
         rest_meters_price = self.storage.rest_square_meters_price
 
-        total_price = first_meter_price + (self.size - 1) * rest_meters_price
+        total_price = first_meter_price + (Decimal(self.size) - 1) * rest_meters_price
 
         return total_price
 
@@ -173,6 +174,7 @@ class Box(models.Model):
         return area
 
     def save(self, *args, **kwargs):
+        self.size = self.calculate_area()
         self.month_rent_price = self.count_month_rent_price()
 
         super().save(*args, **kwargs)
