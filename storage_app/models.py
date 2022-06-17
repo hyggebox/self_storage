@@ -9,6 +9,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+from pytils.translit import slugify
 
 from storage_app.managers import StorageQuerySet, BoxQuerySet, BoxOrderQuerySet
 
@@ -25,6 +26,7 @@ class Storage(models.Model):
     phone = PhoneNumberField("телефон склада", blank=True, db_index=True)
     alias = models.CharField(
         'запоминающееся название',
+        unique=True,
         max_length=128,
         blank=True
     )
@@ -70,6 +72,11 @@ class Storage(models.Model):
         free_boxes_count = self.boxes.count() - self.boxes.filter(is_rented=True).count()
 
         return free_boxes_count
+
+    def slugify_alias(self):
+        slugified_alias = slugify(self.alias)
+
+        return slugified_alias
 
     class Meta:
         verbose_name = 'склад'
