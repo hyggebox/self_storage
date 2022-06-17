@@ -80,6 +80,11 @@ class Storage(models.Model):
 
         return min_box_price
 
+    def count_max_box_height(self):
+        min_box_price = self.boxes.aggregate(models.Max('height'))['height__max']
+
+        return min_box_price
+
     def count_squares_meters(self):
         squares_meters_count = self.boxes.aggregate(models.Sum('size'))['size__sum']
 

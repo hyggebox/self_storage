@@ -69,13 +69,13 @@
 					<h1 class="text-center mb-4 fw-bold">{{ storage.address }}</h1>
 					<div class="row d-flex flex-column mb-5">
 						<div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-between align-self-center">
-							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Контакты" data-bs-content="Список контактов">
+							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Контакты" data-bs-content="{% if storage.contacts %}{{ storage.contacts }}{% else %}Список контактов{% endif %}">
 								Контакты
 							</a>
-							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Описание" data-bs-content="Текст описания">
+							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Описание" data-bs-content="{% if storage.description %}{{ storage.description }}{% else %}Текст описания{% endif %}">
 								Описание
 							</a>
-							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Проезд" data-bs-content="Описание проезда">
+							<a type="button" class="SelfStorage_orange" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" title="Проезд" data-bs-content="{% if storage.driving_directions %}{{ storage.driving_directions }}{% else %}Описание проезда{% endif %}">
 								Проезд
 							</a>
 						</div>
@@ -114,13 +114,13 @@
 							<div class="row">
 								<p class="text-center text-lg-start SelfStorage_grey">Доступ по QR</p>
 								<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
-									<span class="fs_30 fw-bold SelfStorage_orange">17 °С</span>
+									<span class="fs_30 fw-bold SelfStorage_orange">{{ storage.temperature|floatformat:"u" }} °С</span>
 									<span class="SelfStorage_grey mb-3">Температура на складе</span>
 									<span class="fs_30 fw-bold SelfStorage_orange">{{ storage.count_free_boxes }}  из {{ storage.boxes.count }}</span>
 									<span class="SelfStorage_grey mb-3">Боксов свободно</span>
 								</div>
 								<div class="col-6 d-flex flex-column align-items-center align-items-lg-start">
-									<span class="fs_30 fw-bold SelfStorage_orange">до 3.5 м</span>
+									<span class="fs_30 fw-bold SelfStorage_orange">до {{ storage.count_max_box_height|floatformat:"u" }} м</span>
 									<span class="SelfStorage_grey mb-3">Высота потолка</span>
 									<span class="fs_30 fw-bold SelfStorage_orange">от {{ storage.count_min_box_price }} ₽</span>
 									<span class="SelfStorage_grey mb-3">Оплата за месяц</span>
@@ -338,10 +338,3 @@
 </main>
 
 {% endblock content %}
-
-<script>
-	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-	var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-		return new bootstrap.Popover(popoverTriggerEl)
-	})
-</script>
