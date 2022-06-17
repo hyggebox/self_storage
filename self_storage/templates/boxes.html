@@ -182,13 +182,13 @@
 					{% if forloop.counter <= 5 %}
 							<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 								<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="SelfStorage_green fs_24 me-2">1 эт.</span><span class="fs_24">№{{ box.id }}</span>
+									<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 									<span class="fs_24">{{ box.size }} м²</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="fs_24">2 х 4 х 2.5 м²</span>
+									<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
 									<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
@@ -203,13 +203,13 @@
 						{% if forloop.counter >= 6 %}
 								<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 									<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-										<span class="SelfStorage_green fs_24 me-2">1 эт.</span><span class="fs_24">№{{ box.id }}</span>
+										<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 									</div>
 									<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 										<span class="fs_24">{{ box.size }} м²</span>
 									</div>
 									<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-										<span class="fs_24">2 х 4 х 2.5 м²</span>
+										<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 									</div>
 									<div class="col-12 col-lg-3">
 										<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
@@ -235,13 +235,13 @@
 					{% if box.size <= 3 %}
 						<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 							<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-								<span class="SelfStorage_green fs_24 me-2">1 эт.</span><span class="fs_24">№{{ box.id }}</span>
+								<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 							</div>
 							<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 								<span class="fs_24">{{ box.size }} м²</span>
 							</div>
 							<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-								<span class="fs_24">2 х 1 х 2.5 м²</span>
+								<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 							</div>
 							<div class="col-12 col-lg-3">
 								<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
@@ -259,13 +259,13 @@
 						{% if box.size <= 10 %}
 							<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 								<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="SelfStorage_green fs_24 me-2">1 эт.</span><span class="fs_24">№{{ box.id }}</span>
+									<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 									<span class="fs_24">{{ box.size }} м²</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="fs_24">2 х 1 х 2.5 м²</span>
+									<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
 									<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
@@ -282,13 +282,13 @@
 							{% if box.size <= 10 %}
 							<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 								<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="SelfStorage_green fs_24 me-2">1 эт.</span><span class="fs_24">№{{ box.id }}</span>
+									<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 									<span class="fs_24">{{ box.size }} м²</span>
 								</div>
 								<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-									<span class="fs_24">2 х 1 х 2.5 м²</span>
+									<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
 									<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
@@ -314,13 +314,13 @@
 					{% if box.size >= 10 %}
 						<a href="#" class="row text-decoration-none py-3 px-4 mt-5 SelfStorage__boxlink">
 							<div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-								<span class="SelfStorage_green fs_24 me-2">3 эт.</span><span class="fs_24">№{{ box.id }}</span>
+								<span class="SelfStorage_green fs_24 me-2">{{ box.floor }} эт.</span><span class="fs_24">№{{ box.id }}</span>
 							</div>
 							<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
 								<span class="fs_24">{{ box.size }} м²</span>
 							</div>
 							<div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-								<span class="fs_24">5 х 2 х 1 м²</span>
+								<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 							</div>
 							<div class="col-12 col-lg-3">
 								<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>

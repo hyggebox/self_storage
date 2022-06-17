@@ -21,7 +21,7 @@ class StorageAdmin(admin.ModelAdmin):
 
 @admin.register(Box)
 class BoxAdmin(admin.ModelAdmin):
-    readonly_fields = ['month_rent_price', 'is_rented']
+    readonly_fields = ['size', 'month_rent_price', 'is_rented']
 
 
 @admin.register(Client)
