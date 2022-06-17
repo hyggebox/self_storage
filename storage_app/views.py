@@ -8,10 +8,12 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
-from .models import Storage, Box, Client
+from .models import Storage, Box, Client, Email
 
 
 
@@ -77,10 +79,23 @@ def index(request):
 
 
 def boxes(request):
+    if request.method == 'POST':
+        if 'send_email_button' in request.POST:
+            email_for_sender = request.POST['EMAIL1']
+
+            try:
+                validate_email(email_for_sender)
+                Email.objects.get_or_create(email=email_for_sender)
+            except ValidationError as e:
+                print("bad email, details:", e)
+            else:
+                print("good email")
+
     context = {
         'storages': Storage.objects.all(),
         'boxes': Box.objects.all(),
     }
+    
     return render(request, 'boxes.html', context)
 
 

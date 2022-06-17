@@ -207,6 +207,25 @@ class Client(models.Model):
         return str(self.phone)
 
 
+class Email(models.Model):
+    """Почты оставленные на сайте."""
+
+    email = models.EmailField(
+        'почта'
+    )
+    send_at = models.DateTimeField(
+        'когда посетитель сайта оставил почту',
+        auto_now_add=True
+    )
+
+    class Meta:
+        verbose_name = 'почта'
+        verbose_name_plural = 'почты'
+
+    def __str__(self):
+        return str(self.email)
+
+
 class BoxOrder(models.Model):
     """Заказ на аренду бокса."""
 
