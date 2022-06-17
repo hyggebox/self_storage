@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
-from .models import Storage, Client
+from .models import Storage, Box, Client
 
 
 
@@ -79,6 +79,7 @@ def index(request):
 def boxes(request):
     context = {
         'storages': Storage.objects.all(),
+        'boxes': Box.objects.all(),
     }
     return render(request, 'boxes.html', context)
 
