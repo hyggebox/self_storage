@@ -39,9 +39,9 @@
 								<label class="fs_24 SelfStorage_green ms-2" for="PASSWORD">Пароль</label>
 
 								<input type="password" name="PASSWORD_EDIT" id="PASSWORD" class="form-control fs_24 ps-2 SelfStorage__input" value="new password" disabled>
-								<button type="submit" name="alter_personal_details" class="btn SelfStorage_green ps-1" id="save" style="display: none" onclick="submitForms">Сохранить</button>
+								<button type="submit" name="alter_personal_details" class="btn SelfStorage_green ps-1" id="save" style="display: none">Сохранить</button>
 								<a class="btn SelfStorage_orange ps-1" id="edit">Редактировать</a>
-								<script>
+								<script type="text/javascript">
 									document.getElementById('edit').addEventListener('click', e => {
 										e.preventDefault()
 
@@ -97,9 +97,11 @@
                 <h4>№{{ order.box.storage.id }}-{{ order.box.id }}</h4>
                 <h4 class="SelfStorage_green">Срок аренды</h4>
                 <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
-                <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
-                <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" data-bs-toggle="modal" data-bs-target="#showCode{{ order.box.id }}">Открыть бокс</button></div>
-
+                <form action="my-rent" method="post">
+                  {% csrf_token %}
+                  <div><button name="" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
+                  <div><button type="submit" name="open_box" value="{{ order.id }}" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" data-bs-toggle="modal" data-bs-target="#showCode{{ order.box.id }}">Открыть бокс</button></div>
+                </form>
                 <!-- Modal -->
                 <div class="modal fade" id="showCode{{ order.box.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -137,5 +139,6 @@
 		</div>
 	</div>
 </main>
+
 
 {% endblock content %}
