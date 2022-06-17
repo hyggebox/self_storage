@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storage_app',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env.str('DEFAULT_FROM_EMAIL')
 EMAIL_PORT = env.int('EMAIL_PORT')
 EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
+
+APSCHEDULER_DATETIME_FORMAT = "d.m.Y H:M:S"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
