@@ -191,7 +191,7 @@
 									<span class="fs_24">2 х 4 х 2.5 м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
-									<span onclick="pay()" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+									<span onclick="pay(amount={{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 								</div>
 							</a>
 					{% endif %}
@@ -212,7 +212,7 @@
 										<span class="fs_24">2 х 4 х 2.5 м²</span>
 									</div>
 									<div class="col-12 col-lg-3">
-										<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+										<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 									</div>
 								</a>
 						{% endif %}
@@ -244,7 +244,7 @@
 								<span class="fs_24">2 х 1 х 2.5 м²</span>
 							</div>
 							<div class="col-12 col-lg-3">
-								<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+								<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 							</div>
 						</a>
 					{% endif %}
@@ -268,7 +268,7 @@
 									<span class="fs_24">2 х 1 х 2.5 м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
-									<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+									<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 								</div>
 							</a>
 						{% endif %}
@@ -291,7 +291,7 @@
 									<span class="fs_24">2 х 1 х 2.5 м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
-									<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+									<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 								</div>
 							</a>
 							{% endif %}
@@ -323,7 +323,7 @@
 								<span class="fs_24">5 х 2 х 1 м²</span>
 							</div>
 							<div class="col-12 col-lg-3">
-								<span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+								<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
 							</div>
 						</a>
 					{% endif %}
@@ -338,18 +338,18 @@
 </main>
 
  <script>
-   function pay() {
+   function pay(amount) {
          var widget = new cp.CloudPayments();
             widget.pay('auth', // или 'charge'
                 { //options
                     publicId: 'test_api_00000000000000000000001', //id из личного кабинета
                     description: 'Оплата товаров в example.com', //назначение
-                    amount: 100, //сумма
+                    amount: amount, //сумма
                     currency: 'RUB', //валюта
                     accountId: 'user@example.com', //идентификатор плательщика (необязательно)
                     invoiceId: '1234567', //номер заказа  (необязательно)
                     email: 'user@example.com', //email плательщика (необязательно)
-                    skin: "mini", //дизайн виджета (необязательно)
+                    skin: "modern", //дизайн виджета (необязательно)
                     data: {
                         myProp: 'myProp value'
                     }
