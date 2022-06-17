@@ -216,7 +216,11 @@
 										<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 									</div>
 									<div class="col-12 col-lg-3">
-										<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+										{% if user.is_authenticated %}
+                                            <span onclick="pay(amount={{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }}₽</span>
+                                        {% else %}
+                                            <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8" data-bs-toggle="modal" data-bs-target="#SignModal">Войти и купить за  {{ box.month_rent_price }}₽</span>
+                                        {% endif %}
 									</div>
 								</a>
 						{% endif %}
@@ -248,7 +252,11 @@
 								<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 							</div>
 							<div class="col-12 col-lg-3">
-								<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+								    {% if user.is_authenticated %}
+                                        <span onclick="pay(amount={{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }}₽</span>
+                                    {% else %}
+                                        <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8" data-bs-toggle="modal" data-bs-target="#SignModal">Войти и купить за  {{ box.month_rent_price }}₽</span>
+                                    {% endif %}
 							</div>
 						</a>
 					{% endif %}
@@ -272,7 +280,11 @@
 									<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
-									<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+									{% if user.is_authenticated %}
+                                        <span onclick="pay(amount={{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }}₽</span>
+                                    {% else %}
+                                        <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8" data-bs-toggle="modal" data-bs-target="#SignModal">Войти и купить за  {{ box.month_rent_price }}₽</span>
+                                    {% endif %}
 								</div>
 							</a>
 						{% endif %}
@@ -295,7 +307,11 @@
 									<span class="fs_24">{{ box.length|floatformat:"u" }} х {{ box.width|floatformat:"u" }} х {{ box.height|floatformat:"u" }} м²</span>
 								</div>
 								<div class="col-12 col-lg-3">
-									<span onclick="pay({{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }} ₽</span>
+									{% if user.is_authenticated %}
+                                        <span onclick="pay(amount={{ box.month_rent_price }})" class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8">Купить за  {{ box.month_rent_price }}₽</span>
+                                    {% else %}
+                                        <span class="btn my-2 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange border-8" data-bs-toggle="modal" data-bs-target="#SignModal">Войти и купить за  {{ box.month_rent_price }}₽</span>
+                                    {% endif %}
 								</div>
 							</a>
 							{% endif %}
