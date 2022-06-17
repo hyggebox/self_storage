@@ -76,7 +76,7 @@ class Command(BaseCommand):
 
         scheduler.add_job(
             send_emails,
-            trigger=CronTrigger(minute='*/1'),
+            trigger=CronTrigger(day='*/1'),
             id="send_emails",
             max_instances=1,
             replace_existing=True
