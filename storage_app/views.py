@@ -25,7 +25,16 @@ class SignUp(CreateView):
 
 def index(request):
     if request.method == 'POST':
-        if 'login_button' in request.POST:
+        if 'send_email_button' in request.POST:
+            email_for_sender = request.POST['EMAIL1']
+
+            try:
+                validate_email(email_for_sender)
+                Email.objects.get_or_create(email=email_for_sender)
+            except ValidationError as e:
+                pass
+
+        elif 'login_button' in request.POST:
             user = authenticate(username=request.POST['EMAIL'],
                                 password=request.POST['PASSWORD'])
             if user is not None:
@@ -87,15 +96,13 @@ def boxes(request):
                 validate_email(email_for_sender)
                 Email.objects.get_or_create(email=email_for_sender)
             except ValidationError as e:
-                print("bad email, details:", e)
-            else:
-                print("good email")
+                pass
 
     context = {
         'storages': Storage.objects.all(),
         'boxes': Box.objects.all(),
     }
-    
+
     return render(request, 'boxes.html', context)
 
 
