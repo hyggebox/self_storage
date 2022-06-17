@@ -44,8 +44,31 @@ class Storage(models.Model):
         blank=True,
         default=150
     )
+    temperature = models.FloatField(
+        'температура',
+        blank=True,
+        default=17
+    )
     image = models.ImageField(
         'изображение',
+        blank=True,
+        null=True
+    )
+    description = models.TextField(
+        'описание',
+        help_text='Склад у метро.',
+        blank=True,
+        null=True
+    )
+    contacts = models.TextField(
+        'контакты',
+        help_text='Мы находимся на ул. Манчестерская, д. 7, кв. 1. Телефон 7900000000.',
+        blank=True,
+        null=True
+    )
+    driving_directions = models.TextField(
+        'схема проезда',
+        help_text='После ул. Ленина поверните направо...',
         blank=True,
         null=True
     )
@@ -99,6 +122,30 @@ class Box(models.Model):
         'размер бокса в квадратных метрах',
         validators=[MinValueValidator(1), MaxValueValidator(20),]
     )
+    length = models.FloatField(
+        'длинна',
+        blank=True,
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(20),]
+    )
+    width = models.FloatField(
+        'ширина',
+        blank=True,
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(20),]
+    )
+    height = models.FloatField(
+        'высота',
+        blank=True,
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(20),]
+    )
+    floor = models.PositiveIntegerField(
+        'этаж',
+        blank=True,
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(4),]
+    )
     month_rent_price = models.IntegerField(
         'стоимость аренды на месяц',
         blank=True
@@ -114,6 +161,11 @@ class Box(models.Model):
         total_price = first_meter_price + (self.size - 1) * rest_meters_price
 
         return total_price
+
+    def calculate_area(self):
+        area = self.length * self.width
+
+        return area
 
     def save(self, *args, **kwargs):
         self.month_rent_price = self.count_month_rent_price()
