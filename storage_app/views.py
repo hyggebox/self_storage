@@ -1,20 +1,26 @@
 import os
 import random
+import string
 from functools import reduce
+from time import sleep
 from urllib.parse import unquote
 from email.mime.image import MIMEImage
 
+import folium
 import phonenumbers
 
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.template import loader
 from django.views.generic import CreateView
+from django.utils.crypto import get_random_string
 from django.urls import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 
 from django.contrib.auth.models import User
@@ -24,7 +30,12 @@ from .forms import RegistrationForm
 from .models import Storage, Box, Client, Email, BoxOrder
 
 
-import folium
+
+def generate_password():
+    psw_length = 5
+    allowed_chars = string.ascii_lowercase + string.digits
+    password = get_random_string(psw_length, allowed_chars=allowed_chars)
+    return password
 
 
 def prepare_storage_object_info_html(storage_object):
@@ -138,10 +149,42 @@ def index(request):
             return redirect('/?login=1')
 
         elif 'reset_button' in request.POST:
-            user = User.objects.filter(username=request.POST['EMAIL_FORGET']).first()
-            if user:
-                # TODO - Восстановление пароля
-                print(f'>>>>> отправить новый пароль на {user.username}')
+            entered_email = request.POST['EMAIL_FORGET']
+            user = User.objects.filter(username=entered_email).first()
+            with transaction.atomic():
+                if user:
+                    new_password = generate_password()
+                    email_body = f'''
+                        <html>
+                            <body>
+                                <p>Новый пароль: <strong>{new_password}</strong></p>
+                                <p>Вы можете изменить его в личном кабинете</p>
+                            </body>
+                        </html>
+                        '''
+                    user.set_password(new_password)
+                    user.save()
+                else:
+                    email_body = f'''
+                        <html>
+                            <body>
+                                <p>Вы не зарегистрированы в сервисе SelfStorage</p>
+                                <p>Чтобы зайти в личный кабинет, 
+                                <a href="{request.get_host()}/?login=1" target="_blank">зарегистрируйтесь</a>: 
+                                {request.get_host()}/?login=1
+                                </p>
+                            </body>
+                        </html>
+                        '''
+                email = EmailMessage(
+                    subject='Восстановление пароля в сервисе SelfStorage',
+                    body=email_body,
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[entered_email]
+                )
+                email.content_subtype = "html"
+                email.send()
+
         return redirect('/?login=1')
 
     random_storage = random.choice(Storage.objects.all())
@@ -187,7 +230,6 @@ def my_rent(request):
         current_user = request.user
         if 'open_box' in request.POST:
             order = BoxOrder.objects.get(pk=request.POST['open_box'])
-
             subject = f'Код для открытия бокса №{order.box.id}'
             body_html = f'''
             <html>
@@ -197,7 +239,6 @@ def my_rent(request):
                 </body>
             </html>
             '''
-
             from_email = settings.EMAIL_HOST_USER
             to_email = current_user.username
 
@@ -207,7 +248,6 @@ def my_rent(request):
                 from_email=from_email,
                 to=[to_email]
             )
-
             msg.mixed_subtype = 'related'
             msg.attach_alternative(body_html, "text/html")
             image = unquote(order.access_qr.name)
@@ -216,20 +256,20 @@ def my_rent(request):
                 img = MIMEImage(f.read())
             msg.attach(img)
             msg.send()
-
+            sleep(3)
             return redirect(my_rent)
-        else:
-            if request.POST['PASSWORD_EDIT'] != 'new password':
-                current_user.set_password(request.POST['PASSWORD_EDIT'])
-                current_user.save()
-            if current_user.client.phone != request.POST['PHONE_EDIT']:
-                parsed_phonenumber = phonenumbers.parse(request.POST['PHONE_EDIT'], 'RU')
-                if phonenumbers.is_valid_number(parsed_phonenumber):
-                    formatted_phonenumber = phonenumbers.format_number(
-                        parsed_phonenumber,
-                        phonenumbers.PhoneNumberFormat.E164
-                    )
-                current_user.client.phone = formatted_phonenumber
-                current_user.client.save()
+
+        if request.POST['PASSWORD_EDIT'] != 'new password':
+            current_user.set_password(request.POST['PASSWORD_EDIT'])
+            current_user.save()
+        if current_user.client.phone != request.POST['PHONE_EDIT']:
+            parsed_phonenumber = phonenumbers.parse(request.POST['PHONE_EDIT'], 'RU')
+            if phonenumbers.is_valid_number(parsed_phonenumber):
+                formatted_phonenumber = phonenumbers.format_number(
+                    parsed_phonenumber,
+                    phonenumbers.PhoneNumberFormat.E164
+                )
+            current_user.client.phone = formatted_phonenumber
+            current_user.client.save()
 
     return render(request, 'my-rent.html')
