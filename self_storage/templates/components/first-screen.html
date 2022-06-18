@@ -1,3 +1,5 @@
+{% load static %}
+
 <article class="row">
   <div class="col-12 col-lg-6 mb-3 mb-lg-0">
     <h1 class="fw-bold SelfStorage_green mb-5">Доставка и бережное хранение ваших вещей</h1>
@@ -6,7 +8,7 @@
       {% csrf_token %}
       <input type="text" required name="EMAIL1" class="form-control border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Укажите ваш e-mail">
       <button class="btn border-8 py-3 px-5 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="send_email_button">Рассчитать стоимость</button>
-      <span class="text-center fw-light">Нажимая на кнопку, вы подтверждаете свое <a href="#" class="link-dark">согласие на обработку персональных данных</a></span>
+      <span class="text-center fw-light">Нажимая на кнопку, вы подтверждаете свое <a href="{% static 'pers_data.pdf' %}" target="_blank" class="link-dark">согласие на обработку персональных данных</a></span>
     </form>
   </div>
   <div class="col-12 col-lg-6 SelfStorage__img"></div>
