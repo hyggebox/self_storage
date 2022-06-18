@@ -183,8 +183,7 @@ def index(request):
                             <body>
                                 <p>Вы не зарегистрированы в сервисе SelfStorage</p>
                                 <p>Чтобы зайти в личный кабинет, 
-                                <a href="{request.get_host()}/?login=1" target="_blank">зарегистрируйтесь</a>: 
-                                {request.get_host()}/?login=1
+                                <b><a href="{request.get_host()}/?login=1" target="_blank">зарегистрируйтесь</a></b>
                                 </p>
                             </body>
                         </html>
