@@ -63,16 +63,11 @@
 	</nav>
 </header>
 
-<script>
+<script language="javascript" type="text/javascript">
   document.addEventListener("DOMContentLoaded", function(event) {
      let showModal = new URLSearchParams(window.location.search).get('login');
-     console.log(showModal);
      if(showModal){
-        console.log('it works');
         let myModal = new bootstrap.Modal(document.getElementById('SignModal'), {})
-
-        console.log(myModal)
-
         document.onreadystatechange = function () {
           myModal.show();
         };
@@ -88,16 +83,40 @@
 			</div>
 			<div class="modal-body d-flex justify-content-center align-items-center">
 
-				<form action="/" class="d-flex flex-column align-items-center" style="max-width: 420px" method="post">
+				<form action="/" name="SignUpForm" id="SignUpForm"
+              class="d-flex flex-column align-items-center needs-validation" novalidate
+              style="max-width: 420px" method="post"
+              oninput='PASSWORD_CONFIRM.setCustomValidity(PASSWORD_CONFIRM.value != PASSWORD_CREATE.value ? "Пароли не совпадают" : "")'
+        >
           {% csrf_token %}
 					<h1 class="modal-title text-center fw-bold mb-3">Регистрация</h1>
-					<input type="email" required name="EMAIL_CREATE" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="E-mail">
-          <input type="tel" required name="PHONE" pattern="[0-9]{11}" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Номер телефона (11 цифр)">
-          <input type="text" required name="NAME" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Имя">
-					<input type="password" required name="PASSWORD_CREATE" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Пароль">
-					<input type="password" required name="PASSWORD_CONFIRM" class="form-control border-8 mb-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Подтверждение пароля">
+
+          <input type="email" required name="EMAIL_CREATE" class="form-control border-8 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="E-mail">
+          <div class="invalid-feedback mb-1">
+            Введите email формате: example@mail.ru
+          </div>
+
+          <input type="tel" required name="PHONE" pattern="[7,8]{1}[0-9]{10}" class="form-control border-8 mt-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Номер телефона (11 цифр)">
+          <div class="invalid-feedback mb-1">
+            Введите номер в формате: 79001110000 или 89001110000
+          </div>
+
+          <input type="text" required name="NAME" class="form-control border-8 mt-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Имя">
+          <div class="invalid-feedback mb-1">
+              Введите своё имя
+          </div>
+
+					<input type="password" required name="PASSWORD_CREATE" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" class="form-control border-8 mt-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Пароль">
+          <div class="invalid-feedback mb-1">
+            Пароль должен содержать латинские символы и цифры, мин. длина: 6 знаков
+          </div>
+					<input type="password" name="PASSWORD_CONFIRM" class="form-control border-8 mt-2 py-3 px-4 border-0 fs_16 SelfStorage__bg_lightgrey" placeholder="Подтверждение пароля">
+          <div class="invalid-feedback mb-1">
+            Пароли не совпадают
+          </div>
+
 					<span class="fw-light SelfStorage_grey">Нажимая на кнопку, вы подтверждаете свое <a href="{% static 'pers_data.pdf' %}" target="_blank" class="SelfStorage_grey">согласие на обработку персональных данных</a></span>
-					<button class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="signup_button">Зарегистрироваться</button>
+					<button type="submit" class="btn border-8 py-3 px-5 mt-5 mb-3 w-100 text-white fs_24 SelfStorage__bg_orange SelfStorage__btn2_orange" name="signup_button">Зарегистрироваться</button>
 					<span>Уже зарегистрированы? <a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#SignModal" data-bs-dismiss="modal" aria-label="Close">Войти в личный кабинет</a></span>
 				</form>
 			</div>
@@ -111,9 +130,12 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body d-flex justify-content-center align-items-center">
-				<form action="/" class="d-flex flex-column align-items-center" style="max-width: 420px" method="post">
+				<form action="/" name="login_form" class="d-flex flex-column align-items-center" style="max-width: 420px" method="post">
           {% csrf_token %}
 					<h1 class="modal-title text-center fw-bold mb-3">Вход</h1>
+          {% if errors %}
+            <p class="SelfStorage_orange">{{ errors }}</p>
+          {% endif %}
 					<input type="email" required name="EMAIL" class="form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="E-mail">
 					<input type="password" required name="PASSWORD" class="form-control  border-8 mb-4 py-3 px-5 border-0 fs_24 SelfStorage__bg_lightgrey" placeholder="Пароль">
 					<a href="#" class="SelfStorage_orange" data-bs-toggle="modal" data-bs-target="#ForgetModal" data-bs-dismiss="modal" aria-label="Close">Забыли пароль?</a>
@@ -195,8 +217,26 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
+  (function () {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+          }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+      })()
+
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
   })
+
+
 </script>

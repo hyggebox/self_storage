@@ -105,6 +105,18 @@ class SignUp(CreateView):
 
 
 def index(request):
+    random_storage = random.choice(Storage.objects.all())
+    storage_box_count = random_storage.boxes.count()
+    free_box_count = storage_box_count - random_storage.boxes.filter(
+        is_rented=True).count()
+    folium_map = create_map()
+    context = {
+        'storage': random_storage,
+        'box_count': storage_box_count,
+        'free_box': free_box_count,
+        'map': folium_map._repr_html_(),
+    }
+
     if request.method == 'POST':
         if 'send_email_button' in request.POST:
             email_for_sender = request.POST['EMAIL1']
@@ -118,12 +130,13 @@ def index(request):
         elif 'login_button' in request.POST:
             user = authenticate(username=request.POST['EMAIL'],
                                 password=request.POST['PASSWORD'])
-            if user is not None:
+            if user:
                 login(request, user)
                 return redirect(my_rent)
 
+            context['errors'] = f'Пользователя с почтой {request.POST["EMAIL"]} нет в базе'
 
-            return redirect('/?login=1')
+            return render(request, 'index.html', context)
 
         elif 'signup_button' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
             new_user = User.objects.filter(username=request.POST['EMAIL_CREATE']).first()
@@ -186,17 +199,6 @@ def index(request):
                 email.send()
 
         return redirect('/?login=1')
-
-    random_storage = random.choice(Storage.objects.all())
-    storage_box_count = random_storage.boxes.count()
-    free_box_count = storage_box_count - random_storage.boxes.filter(is_rented=True).count()
-    folium_map = create_map()
-    context = {
-        'storage': random_storage,
-        'box_count': storage_box_count,
-        'free_box': free_box_count,
-        'map': folium_map._repr_html_(),
-    }
 
     return render(request, 'index.html', context)
 
