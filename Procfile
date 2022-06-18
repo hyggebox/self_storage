@@ -1,1 +1,1 @@
-web: gunicorn bakecake.wsgi
+web: gunicorn self_storage.wsgi
