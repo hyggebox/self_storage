@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from environs import Env
 from pathlib import Path
 
+import django_heroku
+
 
 env = Env()
 env.read_env()
@@ -155,6 +157,7 @@ DEFAULT_FROM_EMAIL = env.str('DEFAULT_FROM_EMAIL')
 EMAIL_PORT = env.int('EMAIL_PORT', 25)
 EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)
 
-
 APSCHEDULER_DATETIME_FORMAT = "d.m.Y H:M:S"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+django_heroku.settings(locals())
