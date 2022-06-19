@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storage_app',
     'django_apscheduler',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -158,6 +159,4 @@ EMAIL_PORT = env.int('EMAIL_PORT', 25)
 EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)
 
 APSCHEDULER_DATETIME_FORMAT = "d.m.Y H:M:S"
-APSCHEDULER_RUN_NOW_TIMEOUT = 25
-
-django_heroku.settings(locals())
+APSCHEDULER_RUN_NOW_TIMEOUT = 25 # Таймаут до запуска запланированной задачи в секундах

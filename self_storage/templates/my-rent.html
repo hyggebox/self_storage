@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load template_extras %}
+{% csrf_token %}
 
 {% block title %}My rent{%endblock%}
 
@@ -31,7 +32,6 @@
 						</div>
 						<div class="col-12 col-sm-7 d-flex flex-column">
 							<form action="my-rent" method="post" id="form1">
-                {% csrf_token %}
 								<label class="fs_24 SelfStorage_green ms-2" for="EMAIL">E-mail</label>
 								<input type="email" name="EMAIL_EDIT" id="EMAIL" class="form-control fs_24 ps-2 SelfStorage__input" value="{{ user.username }}" disabled>
 								<label class="fs_24 SelfStorage_green ms-2" for="PHONE">Телефон</label>
@@ -98,10 +98,13 @@
                 <h4 class="SelfStorage_green">Срок аренды</h4>
                 <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
                 <form action="my-rent" method="post">
-                  {% csrf_token %}
-                  <div><button name="" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button></div>
+                   <div>
+                     <button onclick="pay(amount={{ order.box.month_rent_price }}, user={{ user.id }}, box={{ order.box.id }})" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_green SelfStorage__btn2_green mb-3">Продлить аренду</button>
+                    </div>
                   <div><button type="submit" name="open_box" value="{{ order.id }}" class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" data-bs-toggle="modal" data-bs-target="#showCode{{ order.box.id }}">Открыть бокс</button></div>
                 </form>
+                <div><button class="btn fs_24 px-5 py-3 text-white border-8 SelfStorage__bg_orange SelfStorage__btn2_orange mb-3" data-bs-toggle="modal" data-bs-target="#showCode{{ order.box.id }}">Открыть бокс</button></div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="showCode{{ order.box.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -139,5 +142,6 @@
 	</div>
 </main>
 
+<script src="{% static 'payment.js' %}"></script>
 
 {% endblock content %}
