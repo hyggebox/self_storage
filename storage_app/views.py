@@ -261,7 +261,7 @@ def my_rent(request):
                 img = MIMEImage(f.read())
             msg.attach(img)
             msg.send()
-            sleep(3)
+            sleep(4)
             return redirect(my_rent)
 
         if request.POST['PASSWORD_EDIT'] != 'new password':
