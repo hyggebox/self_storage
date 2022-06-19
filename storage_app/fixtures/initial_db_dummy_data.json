@@ -3,7 +3,7 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "username": "user1",
+    "username": "user1@mail.com",
     "password": "password",
     "email": "user1@mail.com"
     }
@@ -12,7 +12,7 @@
     "model": "auth.user",
     "pk": 3,
     "fields": {
-      "username": "user2",
+      "username": "user2@mail.com",
       "password": "password",
       "email": "user2@mail.com"
     }
@@ -21,7 +21,7 @@
     "model": "auth.user",
     "pk": 4,
     "fields": {
-      "username": "user3",
+      "username": "user3@mail.com",
       "password": "password",
       "email": "user3@mail.com"
     }
@@ -30,7 +30,7 @@
     "model": "auth.user",
     "pk": 5,
     "fields": {
-      "username": "user4",
+      "username": "user4@mail.com",
       "password": "password",
       "email": "user4@mail.com"
     }
@@ -39,7 +39,7 @@
     "model": "auth.user",
     "pk": 6,
     "fields": {
-      "username": "user5",
+      "username": "user5@mail.com",
       "password": "password",
       "email": "user5@mail.com"
     }
@@ -48,7 +48,7 @@
     "model": "auth.user",
     "pk": 7,
     "fields": {
-      "username": "user6",
+      "username": "user6@mail.com",
       "password": "password",
       "email": "user6@mail.com"
     }
@@ -259,8 +259,8 @@
     "fields": {
       "box": 1,
       "rent_term": 1,
-      "rent_start": "2021-11-02",
-      "rent_end": "2021-12-02",
+      "rent_start": "2022-01-02",
+      "rent_end": "2022-06-20",
       "client": 2
     }
   },
@@ -270,8 +270,8 @@
     "fields": {
       "box": 2,
       "rent_term": 1,
-      "rent_start": "2021-11-02",
-      "rent_end": "2021-12-02",
+      "rent_start": "2022-06-02",
+      "rent_end": "2022-06-30",
       "client": 2
     }
   },
@@ -281,8 +281,8 @@
     "fields": {
       "box": 3,
       "rent_term": 2,
-      "rent_start": "2021-11-02",
-      "rent_end": "2022-01-02",
+      "rent_start": "2022-06-02",
+      "rent_end": "2022-09-02",
       "client": 3
     }
   },
@@ -292,8 +292,8 @@
     "fields": {
       "box": 4,
       "rent_term": 3,
-      "rent_start": "2021-11-02",
-      "rent_end": "2022-02-02",
+      "rent_start": "2022-03-08",
+      "rent_end": "2022-04-08",
       "client": 4
     }
   },
@@ -303,8 +303,8 @@
     "fields": {
       "box": 5,
       "rent_term": 4,
-      "rent_start": "2021-11-02",
-      "rent_end": "2022-03-02",
+      "rent_start": "2022-05-02",
+      "rent_end": "2022-07-02",
       "client": 2
     }
   },
@@ -314,8 +314,8 @@
     "fields": {
       "box": 6,
       "rent_term": 5,
-      "rent_start": "2021-11-02",
-      "rent_end": "2022-04-02",
+      "rent_start": "2022-04-10",
+      "rent_end": "2022-08-10",
       "client": 3
     }
   }
