@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 
 from .views import index, boxes, faq, my_rent
@@ -10,4 +12,4 @@ urlpatterns = [
     path('my-rent', my_rent, name='my_rent'),
     path('users/', include('django.contrib.auth.urls')),
     path('signup/', views.SignUp.as_view(), name='signup'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
