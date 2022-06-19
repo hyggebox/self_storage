@@ -115,6 +115,7 @@ def index(request):
         'box_count': storage_box_count,
         'free_box': free_box_count,
         'map': folium_map._repr_html_(),
+        'errors': None
     }
 
     if request.method == 'POST':
@@ -128,14 +129,17 @@ def index(request):
                 pass
 
         elif 'login_button' in request.POST:
-            user = authenticate(username=request.POST['EMAIL'],
-                                password=request.POST['PASSWORD'])
-            if user:
-                login(request, user)
+            authentificated_user = authenticate(username=request.POST['EMAIL'],
+                                                password=request.POST['PASSWORD'])
+            if authentificated_user:
+                login(request, authentificated_user)
                 return redirect(my_rent)
 
-            context['errors'] = f'Пользователя с почтой {request.POST["EMAIL"]} нет в базе'
-
+            user_in_db = User.objects.filter(username=request.POST['EMAIL']).first()
+            if user_in_db:
+                context['errors'] = f'Введён неправильный пароль'
+            else:
+                context['errors'] = f'Пользователя с почтой {request.POST["EMAIL"]} нет в базе'
             return render(request, 'index.html', context)
 
         elif 'signup_button' in request.POST and request.POST['PASSWORD_CREATE'] == request.POST['PASSWORD_CONFIRM']:
@@ -270,6 +274,7 @@ def my_rent(request):
                     parsed_phonenumber,
                     phonenumbers.PhoneNumberFormat.E164
                 )
+
             current_user.client.phone = formatted_phonenumber
             current_user.client.save()
 
