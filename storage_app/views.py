@@ -171,7 +171,7 @@ def index(request):
                         <html>
                             <body>
                                 <p>Новый пароль: <strong>{new_password}</strong></p>
-                                <p>Вы можете изменить его в личном кабинете</p>
+                                <p>Вы можете изменить его в <a href="{request.get_host()}/?login=1" target="_blank">личном кабинете</a></b></p>
                             </body>
                         </html>
                         '''
