@@ -8,3 +8,4 @@ qrcode==7.3.1
 pytils==0.4.1
 django-apscheduler==0.6.2
 folium==0.12.1.post1
+djangorestframework==3.13.1

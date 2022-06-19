@@ -16,6 +16,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 
 from django.contrib.auth.models import User
 
@@ -68,6 +71,7 @@ def add_storage(folium_map, lat, lon, name, storage_object_info_html, image_url)
     ).add_to(folium_map)
 
 
+
 def create_map():
     city_centre = [51.672, 39.1843] # Voronezh centre
 
@@ -91,6 +95,19 @@ class SignUp(CreateView):
     form_class = RegistrationForm
     success_url = reverse_lazy('my_rent')
     template_name = 'registration/signup.html'
+
+
+@api_view(['POST'])
+def order_api(request):
+    if request.method == 'POST':
+        order_data = request.data
+        print(order_data['user'])
+        order = BoxOrder.objects.update_or_create(
+            box=Box.objects.get(id=order_data['box']),
+            rent_term=1,
+            client=Client.objects.get(user=order_data['user']),
+        )
+        return Response('OK')
 
 
 def index(request):

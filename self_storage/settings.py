@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storage_app',
     'django_apscheduler',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -153,4 +154,4 @@ EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)
 
 
 APSCHEDULER_DATETIME_FORMAT = "d.m.Y H:M:S"
-APSCHEDULER_RUN_NOW_TIMEOUT = 25
+APSCHEDULER_RUN_NOW_TIMEOUT = 25 # Таймаут до запуска запланированной задачи в секундах
