@@ -124,6 +124,7 @@ def order_api(request):
         order.box = box
         order.rent_term = 1
         order.client = client
+        order.box.is_rented = True
         order.save()
         return Response('OK')
 
@@ -253,7 +254,7 @@ def boxes(request):
 
     context = {
         'storages': Storage.objects.all(),
-        'boxes': Box.objects.all(),
+        'boxes': Box.objects.filter(is_rented=False).all(),
     }
 
     return render(request, 'boxes.html', context)
@@ -298,18 +299,20 @@ def my_rent(request):
             sleep(4)
             return redirect(my_rent)
 
-        if request.POST['PASSWORD_EDIT'] != 'new password':
-            current_user.set_password(request.POST['PASSWORD_EDIT'])
-            current_user.save()
-        if current_user.client.phone != request.POST['PHONE_EDIT']:
-            parsed_phonenumber = phonenumbers.parse(request.POST['PHONE_EDIT'], 'RU')
-            if phonenumbers.is_valid_number(parsed_phonenumber):
-                formatted_phonenumber = phonenumbers.format_number(
-                    parsed_phonenumber,
-                    phonenumbers.PhoneNumberFormat.E164
-                )
+        if 'PASSWORD_EDIT' in request.POST:
+            if request.POST['PASSWORD_EDIT'] != 'new password':
+                current_user.set_password(request.POST['PASSWORD_EDIT'])
+                current_user.save()
+        if 'PHONE_EDIT'in request.POST:
+            if current_user.client.phone != request.POST['PHONE_EDIT']:
+                parsed_phonenumber = phonenumbers.parse(request.POST['PHONE_EDIT'], 'RU')
+                if phonenumbers.is_valid_number(parsed_phonenumber):
+                    formatted_phonenumber = phonenumbers.format_number(
+                        parsed_phonenumber,
+                        phonenumbers.PhoneNumberFormat.E164
+                    )
 
-            current_user.client.phone = formatted_phonenumber
-            current_user.client.save()
+                current_user.client.phone = formatted_phonenumber
+                current_user.client.save()
 
     return render(request, 'my-rent.html')

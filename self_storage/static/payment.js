@@ -68,7 +68,7 @@ function pay(amount, user, box) {
                                         'X-CSRFToken': csrftoken,
                                     }
                                 }
-                            )
+                            ).then(window.location.replace('/my-rent'));
 
                     }
                 }
