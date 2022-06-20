@@ -12,7 +12,6 @@ urlpatterns = [
     path('faq', faq, name='faq'),
     path('my-rent', my_rent, name='my_rent'),
     path('users/', include('django.contrib.auth.urls')),
-    path('signup/', views.SignUp.as_view(), name='signup'),
     path('api-auth/', include('rest_framework.urls')),
     path('order', order_api),
     path('extend-rent', extend_rent_api),
