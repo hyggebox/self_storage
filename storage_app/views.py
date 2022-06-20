@@ -133,9 +133,11 @@ def order_api(request):
 def extend_rent_api(request):
     if request.method == 'PUT':
         order_data = request.data
-        ordered_box = Box.objects.filter(id=order_data['order'])
-        ordered_box.rent_end += relativedelta(month=1)
+        ordered_box = BoxOrder.objects.get(id=order_data['order'])
+        # ordered_box.rent_end += relativedelta(month=1)
+        ordered_box.rent_term += 1
         ordered_box.save()
+        return Response('OK')
 
 
 
