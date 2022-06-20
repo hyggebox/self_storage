@@ -22,7 +22,7 @@
 				<div class="tab-pane fade show active" id="LK" role="tabpanel" aria-labelledby="LK-tab">
 					<div class="row">
 						<div class="col-12 col-sm-5 d-flex flex-column align-items-center">
-							<img src="{% static 'img/image10.png' %}" class="rounded-pill mb-3" alt="">
+							<img src="{% static 'img/default-user.png' %}" width="180" class="rounded-pill mb-3" alt="">
               {% if user.first_name %}
                 <h4>{{ user.first_name }}</h4>
               {% else %}
@@ -60,7 +60,6 @@
 											document.getElementById('save').style.display = 'none'
 										}, 0)
 									})
-
 								</script>
               </form>
 						</div>
