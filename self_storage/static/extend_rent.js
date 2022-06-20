@@ -71,7 +71,7 @@ function pay(amount, user, order) {
                                         'X-CSRFToken': csrftoken,
                                     }
                                 }
-                            )
+                            ).then(window.location.reload());
 
                     }
                 }
