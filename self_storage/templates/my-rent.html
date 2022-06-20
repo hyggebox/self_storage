@@ -61,12 +61,6 @@
 										}, 0)
 									})
 
-									var myModal = document.getElementById('myModal')
-                  var myInput = document.getElementById('myInput')
-
-                  myModal.addEventListener('shown.bs.modal', function () {
-                    myInput.focus()
-                  })
 								</script>
               </form>
 						</div>
@@ -93,7 +87,7 @@
                 <h4 class="SelfStorage_green">Мой {{ order.box.storage }}</h4>
                 <h4>{{ order.box.storage.address }}</h4>
                 <h4 class="SelfStorage_green">Мой бокс</h4>
-                <h4>№{{ order.box.storage.id }}-{{ order.box.id }}</h4>
+                <h4>№{{ order.box.id }}</h4>
                 <h4 class="SelfStorage_green">Срок аренды</h4>
                 <h4>{{ order.rent_start }} - {{ order.rent_end }}</h4>
                 <form action="my-rent" method="post">
