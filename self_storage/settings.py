@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from environs import Env
 from pathlib import Path
 
-import django_heroku
+# import django_heroku
 
 
 env = Env()
@@ -29,7 +29,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default='')
 
-SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 0)
+# SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 0)
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', not DEBUG)
 SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', not DEBUG)
 CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', not DEBUG)
@@ -160,3 +160,5 @@ EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)
 
 APSCHEDULER_DATETIME_FORMAT = "d.m.Y H:M:S"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25 # Таймаут до запуска запланированной задачи в секундах
+
+# django_heroku.settings(locals())
