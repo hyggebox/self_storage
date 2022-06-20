@@ -8,7 +8,7 @@ from email.mime.image import MIMEImage
 
 import folium
 import phonenumbers
-
+from dateutil.relativedelta import relativedelta
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -22,6 +22,7 @@ from django.core.validators import validate_email
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -112,13 +113,29 @@ class SignUp(CreateView):
 def order_api(request):
     if request.method == 'POST':
         order_data = request.data
-        print(order_data['user'])
-        order = BoxOrder.objects.update_or_create(
-            box=Box.objects.get(id=order_data['box']),
-            rent_term=1,
-            client=Client.objects.get(user=order_data['user']),
-        )
+        # BoxOrder.objects.create(
+        #     box=Box.objects.get(id=order_data['box']),
+        #     rent_term=1,
+        #     client=Client.objects.get(user=order_data['user']),
+        # )
+        box = Box.objects.get(id=order_data['box'])
+        client = Client.objects.get(user=order_data['user'])
+        order = BoxOrder()
+        order.box = box
+        order.rent_term = 1
+        order.client = client
+        order.save()
         return Response('OK')
+
+
+@api_view(['PUT'])
+def extend_rent_api(request):
+    if request.method == 'PUT':
+        order_data = request.data
+        ordered_box = Box.objects.filter(id=order_data['order'])
+        ordered_box.rent_end += relativedelta(month=1)
+        ordered_box.save()
+
 
 
 def index(request):
