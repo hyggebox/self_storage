@@ -103,12 +103,6 @@ def create_map():
     return folium_map
 
 
-class SignUp(CreateView):
-    form_class = RegistrationForm
-    success_url = reverse_lazy('my_rent')
-    template_name = 'registration/signup.html'
-
-
 @api_view(['POST'])
 def order_api(request):
     if request.method == 'POST':
@@ -138,7 +132,6 @@ def extend_rent_api(request):
         ordered_box.rent_term += 1
         ordered_box.save()
         return Response('OK')
-
 
 
 def index(request):
@@ -199,7 +192,7 @@ def index(request):
                             phone=formatted_phonenumber,
                         )
                         login(request, created_user)
-
+                return redirect(my_rent)
             return redirect('/?login=1')
 
         elif 'reset_button' in request.POST:
